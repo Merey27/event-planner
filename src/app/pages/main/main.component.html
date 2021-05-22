@@ -25,7 +25,7 @@
             </div>
             <p *ngIf="event?.money">Бюджет: {{event?.money}}</p>
             <p *ngIf="event?.place">Адрес: {{event?.place}}</p>
-            <p *ngIf="event?.time">Время: {{event?.time}}</p>
+            <p *ngIf="event?.time">Время: {{event?.time | date}}</p>
             <p *ngIf="event?.text">{{event?.text}}</p>
           </div>
       </li>

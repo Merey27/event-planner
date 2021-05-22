@@ -24,6 +24,7 @@ export class CreateEditEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.createEventForm = this.fb.group({
+      index: [''],
       title: ['', Validators.required],
       type: ['', Validators.required],
       place: [''],

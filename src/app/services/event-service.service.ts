@@ -12,28 +12,39 @@ export class EventServiceService {
   constructor() {}
 
   createEvent(data, date): void {
-    const allEvent = JSON.parse(localStorage.getItem(date));
+    const allEvent = this.getEventsFromStorage(date);
     if (allEvent) {
       localStorage.setItem(date, JSON.stringify([...allEvent, data]));
     } else {
       localStorage.setItem(date, JSON.stringify([data]));
     }
+    this.setIndexForItems(date);
   }
 
-  getEvents(data): void {
-    const event = JSON.parse(localStorage.getItem(data));
+  setIndexForItems(date): void {
+    const allEvent = this.getEventsFromStorage(date);
+    allEvent.map((event, index) => event.index = index);
+    localStorage.setItem(date, JSON.stringify(allEvent));
+  }
+
+  getEvents(date): void {
+    const event = this.getEventsFromStorage(date);
     this.eventsSubject.next(event);
   }
 
   editEvent(data, date): void {
-    const allEvent = JSON.parse(localStorage.getItem(date));
-    const editedEvents = allEvent.filter(item => item.title !== data.title);
-    localStorage.setItem(date, JSON.stringify([data, ...editedEvents]));
+    const allEvent = this.getEventsFromStorage(date);
+    const editedEvents = allEvent.filter(item => item.index !== data.index);
+    localStorage.setItem(date, JSON.stringify([...editedEvents, data]));
   }
 
   deleteEvent(data: any, date): void {
-    const allEvent = JSON.parse(localStorage.getItem(date));
-    const editedEvents = allEvent.filter(item => item.title !== data.title);
+    const allEvent = this.getEventsFromStorage(date);
+    const editedEvents = allEvent.filter(item => item.index !== data.index);
     localStorage.setItem(date, JSON.stringify([...editedEvents]));
+  }
+
+  getEventsFromStorage(date): any {
+    return JSON.parse(localStorage.getItem(date));
   }
 }

@@ -13,7 +13,9 @@ section {
 .events-block {
   width: 50vh;
   border: black 1px solid;
+  border-radius: 4px;
   padding: 10px;
+  margin: 10px;
 
   .title {
     display: flex;
@@ -23,6 +25,16 @@ section {
 
   h3 {
     color: blue;
+  }
+
+  .btns {
+    display: none;
+  }
+}
+
+.events-block:hover {
+  .btns {
+    display: block;
   }
 }
 
