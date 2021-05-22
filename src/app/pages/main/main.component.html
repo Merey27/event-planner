@@ -1,7 +1,41 @@
-<p>main works!</p>
-<p>main works!</p>
-<p>main works!</p>
-<p>main works!</p>
-<p>main works!</p>
+`<section>
+  <div class="date-block">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="dateValue" (ngModelChange)="dateSelected()">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button (click)="createEvent()" mat-raised-button color="primary">Добавить</button>
+  </div>
+  <div>
+    <ul>
+      <li *ngFor="let event of events | async">
+          <div class="events-block" >
+            <div class="title">
+              <h3>Название: {{event?.title}}</h3>
+              <div class="btns">
+                <button (click)="editEvent(event)" mat-icon-button aria-label="edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+            <p *ngIf="event?.money">Бюджет: {{event?.money}}</p>
+            <p *ngIf="event?.place">Адрес: {{event?.place}}</p>
+            <p *ngIf="event?.time">Время: {{event?.time}}</p>
+            <p *ngIf="event?.text">{{event?.text}}</p>
+          </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <h3>Нет данных</h3>
+</ng-template>
 
 <router-outlet></router-outlet>
+`

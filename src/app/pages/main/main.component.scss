@@ -1,0 +1,28 @@
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.date-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.events-block {
+  width: 50vh;
+  border: black 1px solid;
+  padding: 10px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  h3 {
+    color: blue;
+  }
+}
+

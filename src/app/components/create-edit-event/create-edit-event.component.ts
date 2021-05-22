@@ -26,22 +26,48 @@ export class CreateEditEventComponent implements OnInit {
     this.createEventForm = this.fb.group({
       title: ['', Validators.required],
       type: ['', Validators.required],
-      place: ['', Validators.required],
-      time: ['', Validators.required],
-      money: ['', Validators.required],
-      text: ['', Validators.required]
+      place: [''],
+      time: [''],
+      money: [''],
+      text: ['']
     });
+
+    if (this.data.event) {
+      this.createEventForm.patchValue(this.data.event);
+      this.selectedEventType = this.data.event.type;
+    }
 
     this.createEventForm.controls.type.valueChanges.subscribe(
       data => this.selectedEventType = data);
+
+    this.setValidators();
+
   }
 
   createEvent(): void {
+    console.log(this.createEventForm);
     if (this.createEventForm.invalid) {
       return;
     }
 
     this.service.createEvent(this.createEventForm.getRawValue(), this.data.date);
+    this.service.getEvents(this.data.date);
+    this.dialogRef.close();
+  }
+
+  setValidators(): void {
+    switch (this.selectedEventType) {
+      case this.eventType.events:
+        this.createEventForm.controls.place.setValidators([Validators.required]);
+        this.createEventForm.controls.place.setValidators([Validators.required]);
+        break;
+      case this.eventType.holidays:
+        this.createEventForm.controls.money.setValidators([Validators.required]);
+        break;
+      case this.eventType.remarks:
+        this.createEventForm.controls.text.setValidators([Validators.required]);
+        break;
+    }
   }
 
   closeDialog(): void {
