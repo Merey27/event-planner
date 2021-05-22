@@ -25,7 +25,15 @@ export class EventServiceService {
     this.eventsSubject.next(event);
   }
 
-  editEvent(data): void {
+  editEvent(data, date): void {
+    const allEvent = JSON.parse(localStorage.getItem(date));
+    const editedEvents = allEvent.filter(item => item.title !== data.title);
+    localStorage.setItem(date, JSON.stringify([data, ...editedEvents]));
+  }
 
+  deleteEvent(data: any, date): void {
+    const allEvent = JSON.parse(localStorage.getItem(date));
+    const editedEvents = allEvent.filter(item => item.title !== data.title);
+    localStorage.setItem(date, JSON.stringify([...editedEvents]));
   }
 }

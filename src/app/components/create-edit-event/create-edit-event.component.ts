@@ -45,23 +45,27 @@ export class CreateEditEventComponent implements OnInit {
   }
 
   createEvent(): void {
-    console.log(this.createEventForm);
     if (this.createEventForm.invalid) {
       return;
     }
 
-    this.service.createEvent(this.createEventForm.getRawValue(), this.data.date);
+    if (this.data.event) {
+      this.service.editEvent(this.createEventForm.getRawValue(), this.data.date);
+    } else {
+      this.service.createEvent(this.createEventForm.getRawValue(), this.data.date);
+    }
+
     this.service.getEvents(this.data.date);
     this.dialogRef.close();
   }
 
   setValidators(): void {
     switch (this.selectedEventType) {
-      case this.eventType.events:
+      case this.eventType.holidays:
         this.createEventForm.controls.place.setValidators([Validators.required]);
         this.createEventForm.controls.place.setValidators([Validators.required]);
         break;
-      case this.eventType.holidays:
+      case this.eventType.events:
         this.createEventForm.controls.money.setValidators([Validators.required]);
         break;
       case this.eventType.remarks:

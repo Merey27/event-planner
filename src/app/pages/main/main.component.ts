@@ -53,4 +53,10 @@ export class MainComponent implements OnInit {
       width: '400px'
     });
   }
+
+  deleteEvent(event: any): void {
+    const date = this.datePipe.transform(this.dateValue, 'shortDate');
+    this.service.deleteEvent(event, date);
+    this.service.getEvents(date);
+  }
 }
