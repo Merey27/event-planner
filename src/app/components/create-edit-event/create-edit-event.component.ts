@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EventServiceService} from '../../services/event-service.service';
 import {EventType} from '../../shared/enum';
+import {IEvent} from '../../shared/interface';
 
 @Component({
   selector: 'app-create-edit-event',
@@ -30,7 +31,7 @@ export class CreateEditEventComponent implements OnInit {
       place: [''],
       time: [''],
       money: [''],
-      text: ['']
+      text: ['', Validators.minLength(3)]
     });
 
     if (this.data.event) {

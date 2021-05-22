@@ -14,6 +14,7 @@ import {Observable} from 'rxjs';
 export class MainComponent implements OnInit {
   dateValue: any;
   events: Observable<any[]>;
+  dateClass: any;
 
   constructor(
     public dialog: MatDialog,

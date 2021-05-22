@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+import {IEvent} from '../shared/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class EventServiceService {
 
   constructor() {}
 
-  createEvent(data, date): void {
+  createEvent(data: IEvent, date): void {
     const allEvent = this.getEventsFromStorage(date);
     if (allEvent) {
       localStorage.setItem(date, JSON.stringify([...allEvent, data]));
@@ -32,19 +33,19 @@ export class EventServiceService {
     this.eventsSubject.next(event);
   }
 
-  editEvent(data, date): void {
+  editEvent(data: IEvent, date): void {
     const allEvent = this.getEventsFromStorage(date);
     const editedEvents = allEvent.filter(item => item.index !== data.index);
     localStorage.setItem(date, JSON.stringify([...editedEvents, data]));
   }
 
-  deleteEvent(data: any, date): void {
+  deleteEvent(data: IEvent, date): void {
     const allEvent = this.getEventsFromStorage(date);
     const editedEvents = allEvent.filter(item => item.index !== data.index);
     localStorage.setItem(date, JSON.stringify([...editedEvents]));
   }
 
-  getEventsFromStorage(date): any {
+  getEventsFromStorage(date): IEvent[] {
     return JSON.parse(localStorage.getItem(date));
   }
 }

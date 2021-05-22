@@ -38,7 +38,10 @@
     </mat-form-field>
     <mat-form-field *ngSwitchCase="eventType.events">
       <mat-label>Сколько потратить?</mat-label>
-      <input matInput formControlName="money" required>
+      <input matInput formControlName="money" type="number" required>
+      <mat-error *ngIf="createEventForm.controls.money.hasError('minLength') && !createEventForm.controls.money.hasError('required')">
+        Минимальное значние 5
+      </mat-error>
       <mat-error *ngIf="createEventForm.controls.money.hasError('required')">
         Введите поле
       </mat-error>
